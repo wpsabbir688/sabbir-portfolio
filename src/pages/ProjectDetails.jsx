@@ -21,7 +21,7 @@ export default function ProjectDetails() {
       <article className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 lg:py-20">
         <Reveal>
           <Link
-            to="/#work"
+            to="/work"
             className="inline-flex items-center gap-2 text-sm font-medium text-slate-text transition-colors hover:text-cyanic"
           >
             <ArrowLeft size={16} aria-hidden="true" />
@@ -103,7 +103,7 @@ export default function ProjectDetails() {
                   ) : (
                     <p className="text-sm leading-relaxed text-slate-text">
                       A public live link has not been added for this project yet.{" "}
-                      <Link to="/#contact" className="font-medium text-cyanic hover:text-mist">
+                      <Link to="/contact" className="font-medium text-cyanic hover:text-mist">
                         Ask about this project
                       </Link>
                     </p>

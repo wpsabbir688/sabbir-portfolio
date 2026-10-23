@@ -60,7 +60,7 @@ export default function About() {
             </Reveal>
             <Reveal delay={0.22}>
               <Link
-                to="/#contact"
+                to="/contact" state={{ fromNav: true }}
                 className="group mt-9 inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-7 py-3.5 text-sm font-semibold text-mist transition-all duration-300 hover:border-cyanic/50 hover:bg-white/[0.06]"
               >
                 Let&apos;s Work Together

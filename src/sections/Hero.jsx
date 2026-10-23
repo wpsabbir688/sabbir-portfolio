@@ -111,11 +111,6 @@ export default function Hero() {
     pointerY.set((event.clientY - rect.top) / rect.height);
   };
 
-  const scrollToWork = (event) => {
-    event.preventDefault();
-    document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section
       id="home"
@@ -164,16 +159,17 @@ export default function Hero() {
           </motion.p>
 
           <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-4">
-            <a
-              href="#work"
-              onClick={scrollToWork}
+            <Link
+              to="/work"
+              state={{ fromNav: true }}
               className="group inline-flex items-center gap-2.5 rounded-full bg-electric px-7 py-3.5 text-sm font-semibold text-white shadow-[0_10px_36px_-10px_rgba(79,124,255,0.75)] transition-all duration-300 hover:bg-[#628dff] active:scale-[0.98]"
             >
               Explore My Work
               <ArrowDown size={16} aria-hidden="true" className="transition-transform duration-300 group-hover:translate-y-0.5" />
-            </a>
+            </Link>
             <Link
-              to="/#contact"
+              to="/contact"
+              state={{ fromNav: true }}
               className="group inline-flex items-center gap-2.5 rounded-full border border-line bg-white/[0.03] px-7 py-3.5 text-sm font-semibold text-mist backdrop-blur transition-all duration-300 hover:border-cyanic/50 hover:bg-white/[0.06] active:scale-[0.98]"
             >
               Start a Project

@@ -39,11 +39,20 @@ export const AVAILABILITY = {
 export const CONTACT_ENDPOINT = "";
 
 export const NAV_LINKS = [
-  { label: "Home", hash: "home", path: "/#home" },
-  { label: "Work", hash: "work", path: "/#work" },
-  { label: "Services", hash: "services", path: "/#services" },
-  { label: "About", hash: "about", path: "/#about" },
-  { label: "Contact", hash: "contact", path: "/#contact" },
+  { label: "Home", hash: "home", path: "/" },
+  { label: "Work", hash: "work", path: "/work" },
+  { label: "Services", hash: "services", path: "/services" },
+  { label: "About", hash: "about", path: "/about" },
+  { label: "Contact", hash: "contact", path: "/contact" },
+];
+
+/* Clean section routes: each renders the one-page Home scrolled to that
+   section, so URLs read /contact instead of /#contact. */
+export const SECTION_ROUTES = [
+  { path: "/work", sectionId: "work" },
+  { path: "/services", sectionId: "services" },
+  { path: "/about", sectionId: "about" },
+  { path: "/contact", sectionId: "contact" },
 ];
 
 export const SOCIALS = [

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { AVAILABILITY, NAV_LINKS, SITE } from "../utils/constants.js";
+import { AVAILABILITY, NAV_LINKS, SECTION_ROUTES, SITE } from "../utils/constants.js";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -10,7 +10,10 @@ export default function Navbar() {
   const [active, setActive] = useState("home");
   const location = useLocation();
   const navigate = useNavigate();
-  const onHome = location.pathname === "/";
+  /* The one-page sections live on "/" and on the clean section routes
+     (/work, /services, /about, /contact) — all render the same Home page. */
+  const onHomeFamily =
+    location.pathname === "/" || SECTION_ROUTES.some((route) => route.path === location.pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -19,9 +22,9 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Track the section currently in view (home page only). */
+  /* Track the section currently in view (home + section routes). */
   useEffect(() => {
-    if (!onHome) {
+    if (!onHomeFamily) {
       setActive("");
       return undefined;
     }
@@ -37,12 +40,12 @@ export default function Navbar() {
     );
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, [onHome, location.hash]);
+  }, [onHomeFamily, location.pathname]);
 
   /* Close the mobile menu on route change and on Escape. */
   useEffect(() => {
     setOpen(false);
-  }, [location.pathname, location.hash]);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -53,15 +56,13 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open ]);
 
+  /* Navigate to the clean section route (/contact, /work, ...). The
+     SectionRoute component scrolls to the section — smoothly when the
+     click started on the home family, instantly from other pages. */
   const goToSection = (event, link) => {
     event.preventDefault();
     setOpen(false);
-    if (onHome) {
-      document.getElementById(link.hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
-      window.history.replaceState(null, "", `/#${link.hash}`);
-    } else {
-      navigate(link.path);
-    }
+    navigate(link.path, { state: onHomeFamily ? { fromNav: true } : undefined });
   };
 
   return (
@@ -79,7 +80,7 @@ export default function Navbar() {
         className="mx-auto flex h-[72px] w-full max-w-7xl items-center justify-between px-5 sm:px-8"
         aria-label="Primary"
       >
-        <Link to="/#home" onClick={(e) => goToSection(e, NAV_LINKS[0])} className="flex flex-col leading-none">
+        <Link to="/" className="flex flex-col leading-none">
           <span className="font-display text-[1.35rem] font-bold tracking-[0.14em] text-mist">
             SABBIR<span className="text-cyanic">.</span>
           </span>
@@ -121,8 +122,8 @@ export default function Navbar() {
             {AVAILABILITY.label}
           </span>
           <NavLink
-            to="/#contact"
-            onClick={(e) => goToSection(e, NAV_LINKS[NAV_LINKS.length - 1])}
+            to="/contact"
+            state={{ fromNav: true }}
             className="group inline-flex items-center gap-1.5 rounded-full bg-mist px-5 py-2.5 text-sm font-semibold text-ink transition-all duration-300 hover:bg-cyanic active:scale-[0.97]"
           >
             Let&apos;s Talk
@@ -179,14 +180,15 @@ export default function Navbar() {
                   />
                   {AVAILABILITY.label}
                 </span>
-                <a
-                  href="/#contact"
-                  onClick={(e) => goToSection(e, NAV_LINKS[NAV_LINKS.length - 1])}
+                <Link
+                  to="/contact"
+                  state={{ fromNav: true }}
+                  onClick={() => setOpen(false)}
                   className="mt-4 flex items-center justify-center gap-2 rounded-full bg-electric px-5 py-3.5 text-sm font-semibold text-white"
                 >
                   Let&apos;s Talk
                   <ArrowUpRight size={15} aria-hidden="true" />
-                </a>
+                </Link>
               </li>
             </ul>
           </motion.div>

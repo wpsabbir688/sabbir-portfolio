@@ -46,7 +46,8 @@ export default function ServiceCard({ service, index = 0 }) {
       <p className="mt-3 flex-1 leading-relaxed text-slate-text">{service.description}</p>
 
       <Link
-        to="/#contact"
+        to="/contact"
+        state={{ fromNav: true }}
         className="mt-7 inline-flex items-center gap-1.5 text-sm font-semibold text-cyanic transition-colors hover:text-mist"
         aria-label={`Discuss ${service.title}`}
       >
