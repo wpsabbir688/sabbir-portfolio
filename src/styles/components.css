@@ -1,0 +1,78 @@
+/* Shared component-level styles (kept small — most styling lives in Tailwind
+   utilities inside the JSX components). */
+
+/* Card with controlled border illumination on hover */
+.glow-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  transition:
+    border-color 0.35s ease,
+    transform 0.35s ease,
+    background 0.35s ease;
+}
+.glow-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(420px 200px at var(--mx, 50%) var(--my, 0%), rgba(79, 124, 255, 0.13), transparent 65%);
+  pointer-events: none;
+}
+.glow-card:hover {
+  border-color: rgba(79, 124, 255, 0.45);
+}
+.glow-card:hover::before {
+  opacity: 1;
+}
+
+/* Form fields */
+.field {
+  width: 100%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.75rem;
+  padding: 0.8rem 1rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.field::placeholder {
+  color: #5d6880;
+}
+.field:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.22);
+}
+.field[aria-invalid="true"] {
+  border-color: #f87171;
+}
+select.field option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Custom cursor ring (decorative, fine pointers only, native cursor kept) */
+.custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1.5px solid rgba(72, 229, 255, 0.55);
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 90;
+  mix-blend-mode: screen;
+}
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .custom-cursor-ring {
+    display: none;
+  }
+}

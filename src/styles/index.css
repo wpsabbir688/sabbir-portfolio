@@ -1,0 +1,159 @@
+@import "tailwindcss";
+@import "./animations.css";
+@import "./components.css";
+
+/* ---------------------------------------------------------------------------
+   NEURAL BLUE — design tokens
+--------------------------------------------------------------------------- */
+:root {
+  --bg-primary: #070910;
+  --bg-secondary: #0b1020;
+  --bg-card: #111827;
+  --bg-elevated: #151c2d;
+  --accent-blue: #4f7cff;
+  --accent-cyan: #48e5ff;
+  --accent-violet: #8b5cf6;
+  --text-primary: #f5f7ff;
+  --text-secondary: #a6b0c5;
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+@theme inline {
+  --color-ink: var(--bg-primary);
+  --color-ink-2: var(--bg-secondary);
+  --color-card: var(--bg-card);
+  --color-elevated: var(--bg-elevated);
+  --color-electric: var(--accent-blue);
+  --color-cyanic: var(--accent-cyan);
+  --color-violetic: var(--accent-violet);
+  --color-mist: var(--text-primary);
+  --color-slate-text: var(--text-secondary);
+  --color-line: var(--border-subtle);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(79, 124, 255, 0.45);
+  color: #ffffff;
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Fluid editorial type scale */
+.type-display {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 6.2vw, 5.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+.type-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+.type-h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  line-height: 1.2;
+  font-weight: 600;
+}
+.type-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.type-body-lg {
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.75;
+}
+
+/* Ambient page background: radial lighting + fine grid */
+.neural-bg {
+  position: relative;
+  isolation: isolate;
+}
+.neural-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(56rem 34rem at 12% -6%, rgba(79, 124, 255, 0.16), transparent 60%),
+    radial-gradient(44rem 30rem at 88% 4%, rgba(72, 229, 255, 0.07), transparent 60%),
+    radial-gradient(50rem 36rem at 50% 112%, rgba(139, 92, 246, 0.09), transparent 62%),
+    var(--bg-primary);
+}
+.neural-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 78%);
+}
+
+.text-gradient {
+  background: linear-gradient(92deg, var(--accent-blue) 0%, var(--accent-cyan) 55%, var(--accent-violet) 115%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Thin elegant scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: #232c44;
+  border-radius: 8px;
+  border: 2px solid var(--bg-primary);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2f3c5e;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
