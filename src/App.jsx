@@ -11,7 +11,7 @@ import NotFound from "./pages/NotFound.jsx";
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <ScrollToTop />
         <CustomCursor />
         <div className="neural-bg min-h-screen">
